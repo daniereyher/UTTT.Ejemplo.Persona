@@ -89,6 +89,7 @@
     <Content Include="javaScripPage.aspx" />
     <Content Include="PersonaManager.aspx" />
     <Content Include="PersonaPrincipal.aspx" />
+    <Content Include="Scripts\JavaScriptVal.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />

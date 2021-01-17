@@ -71,6 +71,9 @@ namespace UTTT.Ejemplo.Persona
                     if (this.idPersona == 0)
                     {
                         this.lblAccion.Text = "Agregar";
+                        DateTime tiempo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        this.dateCalendar.TodaysDate = tiempo;
+                        this.dateCalendar.SelectedDate = tiempo;
                     }
                     else
                     {
@@ -79,6 +82,14 @@ namespace UTTT.Ejemplo.Persona
                         this.txtAPaterno.Text = this.baseEntity.strAPaterno;
                         this.txtAMaterno.Text = this.baseEntity.strAMaterno;
                         this.txtClaveUnica.Text = this.baseEntity.strClaveUnica;
+                        DateTime? fechaNacimiento = this.baseEntity.datFechaNacimiento;
+                        if (fechaNacimiento != null)
+                        {
+                            this.dateCalendar.TodaysDate = (DateTime)fechaNacimiento;
+                            this.dateCalendar.SelectedDate = (DateTime)fechaNacimiento;
+
+                        }
+
                         this.setItem(ref this.ddlSexo, baseEntity.CatSexo.strValor);
                     }                
                 }
@@ -98,13 +109,17 @@ namespace UTTT.Ejemplo.Persona
             {
                 DataContext dcGuardar = new DcGeneralDataContext();
                 UTTT.Ejemplo.Linq.Data.Entity.Persona persona = new Linq.Data.Entity.Persona();
+               
                 if (this.idPersona == 0)
                 {
+                    
                     persona.strClaveUnica = this.txtClaveUnica.Text.Trim();
                     persona.strNombre = this.txtNombre.Text.Trim();
                     persona.strAMaterno = this.txtAMaterno.Text.Trim();
                     persona.strAPaterno = this.txtAPaterno.Text.Trim();
                     persona.idCatSexo = int.Parse(this.ddlSexo.Text);
+                    DateTime fechaNacimiento = this.dateCalendar.SelectedDate.Date;
+                    persona.datFechaNacimiento = fechaNacimiento;
                     dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().InsertOnSubmit(persona);
                     dcGuardar.SubmitChanges();
                     this.showMessage("El registro se agrego correctamente.");
