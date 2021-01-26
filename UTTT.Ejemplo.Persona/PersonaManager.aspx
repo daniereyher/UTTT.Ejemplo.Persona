@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaManager" debug=false%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaManager" debug="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,77 +9,28 @@
 
     <title></title>
 
-   <%-- <script type="text/javascript">--%>
+   <script type="text/javascript">
 
+       function size(sender, args) {
+           args.IsValid=(args.Value.length >=3);
+       }
 
-    <%--function validarForm() {
+       function sizeLet(sender, args) {
+           args.IsValid = (args.Value.length >= 3 && args.Value.length <= 50);
+       }
 
-    
+       function sizeC(sender, args) {
+           args.IsValid = (args.Value.length >=5);
+       }
 
-
-    var clave = document.getElementById("txtClaveUnica").value;
-    var nombre = document.getElementById("txtNombre").value;
-    var apellidoP = document.getElementById("txtAPaterno").value;
-    var apellidoM = documento.getElementById("txtAMaterno").value;
-
-    sexo = document.getElementById("ddlSexo").selectedIndex;
-
-    if (sexo == null || sexo == 0) {
-        return;
-    }
-
-        /// Clave
-    else if (clave.lengt == "" || /^\s+$/.test(clave)) {
-        input.style.borderColor = 'salmon';
-        alert("No haz escrito la clave unica");
-        return;
-    }
-
-    else if (clave.length < 3 || /^\s+$/.test(clave)) {
-        alert("La clave unica debe ser mayor a 3 letras");
-        return;
-    }
-
-    else if (isNaN(clave)) {
-        alert("Escriba solo números");
-        return;
-        }
-
-        ///Nombre 
-    else if (nombre == "" || /^\s+$/.test(nombre)) {
-        alert("No haz escrito tu nombre");
-        return;
-    }
-
-    else if (nombre.length < 3 || /^\s+$/.test(nombre)) {
-        alert("El nombre debe ser mayor a 3 letras");
-        return;
-    }
-
-    //else if (nombre ! [A-Z]) {
-    //    alert("El nombre debe ser mayor a 3 letras");
-    //    return false;
-    //}
-
-        ///ApellidoP
-    else if (apellidoP == "" || /^\s+$/.test(apellidoP)) {
-        alert("No haz escrito tu apellido paterno");
-        return;
-    }
-
-
-        this.submit;
-
-        }--%>
-
-    <%--</script>--%>
+   </script>
 
 </head>
-<body>
-    <form id="form1" runat="server">
-    <div style="font-family: 'Barlow Condensed ExtraLight'; font-size: xx-large; font-weight: bold; width: 897px; margin-left: 89px;" align="center">
+<body style="height: 910px">
+    <form id="form1" runat="server" onsubmit="validarForm() ">
+    <div style="font-family: 'Barlow Condensed ExtraLight'; font-size: xx-large; font-weight: bold; width: 1145px; margin-left: 89px;" align="center">
     
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Persona</div>
+        Persona</div>
 
         <div>
         
@@ -97,42 +48,56 @@
         </div>
             <div>
 
-        <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sexo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<asp:DropDownList ID="ddlSexo" runat="server" 
+        <div style="width: 1014px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sexo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<asp:DropDownList ID="ddlSexo" runat="server" 
                 Height="25px" Width="253px" 
                 onselectedindexchanged="ddlSexo_SelectedIndexChanged">
             </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlSexo" EnableClientScript="False" ErrorMessage="Seleccione masculino o femenino" InitialValue="-1"></asp:RequiredFieldValidator>
     </div>
 
         </div>
-        <div> 
+        <div style="width: 1336px"> 
         
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         
             Clave Unica:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
-            <asp:TextBox ID="txtClaveUnica" runat="server" 
+            <asp:TextBox ID="txtClaveUnica" minlength="3" MaxLength="3" runat="server" 
                 Width="249px" ViewStateMode="Disabled"></asp:TextBox>
+            
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="No ha escrito una clave unica"></asp:RequiredFieldValidator>
+&nbsp;&nbsp;&nbsp;<asp:CustomValidator ID="cvClave" runat="server" BorderStyle="None" ErrorMessage="Escriba solo 3 numeros" ClientValidationFunction="size" ValidationGroup="facts" ControlToValidate="txtClaveUnica" ForeColor="#6666FF"></asp:CustomValidator>
         
         </div>
-        <div>
+        <div style="width: 1335px">
         
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
             Nombre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<asp:TextBox 
-                ID="txtNombre" runat="server" Width="249px" ViewStateMode="Disabled"></asp:TextBox>
+                ID="txtNombre" runat="server" Width="249px" ViewStateMode="Disabled" MaxLength="50"></asp:TextBox>
         
-        </div>
-        <div> 
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtNombre" ErrorMessage="No ha escrito su nombre"></asp:RequiredFieldValidator>
+&nbsp; <asp:CustomValidator ID="cvNombre" runat="server" ErrorMessage="Escriba minimo 3 letras" ControlToValidate="txtNombre" ForeColor="#6666FF" ValidationGroup="facts" ClientValidationFunction="sizeLet" OnServerValidate="cvNombre_ServerValidate"></asp:CustomValidator>
+                    
+        &nbsp;
+                    
+            </div>
+        <div style="width: 1336px"> 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
             A Paterno:&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox 
-                ID="txtAPaterno" runat="server" Width="249px" ViewStateMode="Disabled"></asp:TextBox>
-        </div>
-        <div>
+                ID="txtAPaterno" runat="server" Width="249px" ViewStateMode="Disabled" MaxLength="50"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvApellidoP" runat="server" ControlToValidate="txtAPaterno" ErrorMessage="No ha escrito su apellido paterno"></asp:RequiredFieldValidator>
+&nbsp;
+            <asp:CustomValidator ID="cvAPaterno" runat="server" ClientValidationFunction="sizeLet" ControlToValidate="txtAPaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF" ValidationGroup="facts"></asp:CustomValidator>
+            </div>
+        <div style="width: 1338px">
         
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
             A Materno:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
             <asp:TextBox ID="txtAMaterno" runat="server" Width="248px" 
-                ViewStateMode="Disabled"></asp:TextBox>
+                ViewStateMode="Disabled" MaxLength="50"></asp:TextBox>
+        
+            <asp:CustomValidator ID="cvAMaterno" runat="server" ClientValidationFunction="sizeLet" ControlToValidate="txtAMaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF" ValidationGroup="facts"></asp:CustomValidator>
         
         </div>
     <div>
@@ -145,17 +110,47 @@
         &nbsp;&nbsp;&nbsp;
             
     </div>
-        <p>
+        <p style="height: 24px; width: 550px; margin-left: 0px">
      
-        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClientClick="return validarForm()"
-            onclick="btnAceptar_Click" ViewStateMode="Disabled" style="margin-left: 433px" Width="107px" />
-        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" 
-            onclick="btnCancelar_Click" ViewStateMode="Disabled" Height="27px" style="margin-left: 603px" Width="122px" />
-    
+            &nbsp;</p>
+        <p align="left" style="width: 1051px; height: 21px; margin-left: 280px">
+            Correo electronico<asp:TextBox ID="txtEmail" runat="server" OnTextChanged="TextBox1_TextChanged" Width="277px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvCorreo" runat="server" ControlToValidate="txtEmail" ErrorMessage="No ha escrito un correo electronico"></asp:RequiredFieldValidator>
+&nbsp;
+            <asp:RegularExpressionValidator ID="revCorreo" runat="server" ControlToValidate="txtEmail" ErrorMessage="Escriba un correo electronico valido" ForeColor="Black" ValidationExpression="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"></asp:RegularExpressionValidator>
         </p>
+        <p style="width: 1048px; margin-left: 280px">
+            Codigo Postal<asp:TextBox ID="txtCP" runat="server" OnTextChanged="TextBox1_TextChanged1" style="margin-left: 30px" Width="275px" MaxLength="5"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvCodigoP" runat="server" ControlToValidate="txtCP" ErrorMessage="No ha escrito su codigo postal"></asp:RequiredFieldValidator>
+&nbsp;      <asp:CustomValidator ID="cvCP" runat="server" ErrorMessage="Escriba solo 5 numeros" ClientValidationFunction ="sizeC" ValidationGroup="facts" ControlToValidate="txtCP" ForeColor="#6666FF"></asp:CustomValidator>
+            </p>
+        <p style="width: 1047px; margin-left: 280px">
+            RFC<asp:TextBox ID="txtRfc" runat="server" style="margin-left: 89px" Width="268px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="No ha escrito su RFC"></asp:RequiredFieldValidator>
+&nbsp;
+            <asp:RegularExpressionValidator ID="revRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="El RFC no esta escrito correctamente" ForeColor="Black" ValidationExpression="[A-Z]{4}[0-9]{6}[A-Z0-9]{3}"></asp:RegularExpressionValidator>
+        </p>
+        <p style="width: 97px; margin-left: 280px">
+            &nbsp;</p>
+     
+        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar"
+            onclick="btnAceptar_Click" ViewStateMode="Disabled" style="margin-left: 433px; margin-bottom: 0px;" Width="107px" Height="24px" />
+        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" 
+            onclick="btnCancelar_Click" ViewStateMode="Disabled" Height="27px" style="margin-left: 24px; margin-bottom: 0px; margin-top: 0px;" Width="96px" />
+    
+        <p style="width: 588px; margin-left: 280px">
+            <asp:Label ID="lblMensaje" runat="server" ForeColor="#25C559" Text="..."></asp:Label>
+        </p>
+    
     </form>
 
  
+
+
+        <p style="width: 97px; margin-left: 280px">
+            &nbsp;</p>
+     
+         
 
 
 </body>

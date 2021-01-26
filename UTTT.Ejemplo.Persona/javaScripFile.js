@@ -3,26 +3,33 @@
 }
 
 
+//function ejecutarFunctions() {
+//    validarForm();
+//    validarEdad();
+//}
+
+//OnClientClick = "return ejecutarFunctions()"
 
 function validarForm() {
 
-    var clave, nombre, apellidoP, apellidoM, sexo, fecha;
+    var clave, nombre, apellidoP, apellidoM, sexo, fecha, correo;
     clave = document.getElementById("txtClaveUnica").value;
     nombre = document.getElementById("txtNombre").value;
     apellidoP = document.getElementById("txtAPaterno").value;
     apellidoM = document.getElementById("txtAMaterno").value;
     sexo = document.getElementById("ddlSexo").value;
     fecha = document.getElementById("dateCalendar").value;
+    correo = document.getElementById("txtEmail").value;
 
 
-    if (sexo.value == 0 || sexo.value == "") {
-        alert("Falta seleccionar el campo sexo");
-        return false;
-    }
+    //if (sexo.value == -1) {
+    //    alert("Falta seleccionar el campo sexo");
+    //    return false;
+    //}
 
     // Ningun campo vacío 
-    else if (clave == "" || nombre == "" || apellidoP == "") {
-        alert("Llene todos los campos");
+     if (clave == "" || nombre == "" || apellidoP == "") {
+        //alert("Llene todos los campos");
         return false;
     }
     // Clave
@@ -52,7 +59,12 @@ function validarForm() {
     else if (nombre.length < 3 || /^\s+$/.test(nombre)) {
         alert("El nombre debe ser mayor a 3 letras");
         return false;
-    }
+     }
+
+    //else if (/^[A-Z]+$/i.test(nombre)) {
+    //     alert("Escriba solo letras");
+    //     return false; 
+    // }
 
     //ApellidoP
     else if (apellidoP == "" || /^\s+$/.test(apellidoP)) {
@@ -71,18 +83,16 @@ function validarForm() {
         alert("El apellido materno debe ser mayor a 3 letras");
         return false;
     }
-        // Fecha nacimiento
-    else if (fecha == "") {
-        alert("La fecha de nacimeint no ha sido seleccionada");
-        return false;
-    }
+   
 
-    
-    
+     
 
     return true;
 
 }
+
+
+
 
 
 
