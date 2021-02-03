@@ -44,7 +44,7 @@ function validarForm() {
     }
 
     else if (isNaN(clave)) {
-        alert("Escriba solo números");
+        alert("Escriba solo números para la clave unica");
         return false;
     }
 

@@ -13,6 +13,7 @@ using System.Collections;
 using UTTT.Ejemplo.Persona.Control;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
 using System.Text.RegularExpressions;
+using EASendMail;
 
 
 
@@ -74,7 +75,7 @@ namespace UTTT.Ejemplo.Persona
                     if (this.idPersona == 0)
                     {
                         this.lblAccion.Text = "Agregar";
-                        DateTime tiempo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        DateTime tiempo = new DateTime((DateTime.Now.Year)-21, DateTime.Now.Month, DateTime.Now.Day);
                         this.dateCalendar.TodaysDate = tiempo;
                         this.dateCalendar.SelectedDate = tiempo;
                     }
@@ -97,6 +98,8 @@ namespace UTTT.Ejemplo.Persona
                         }
 
                         this.setItem(ref this.ddlSexo, baseEntity.CatSexo.strValor);
+
+
                     }                
                 }
 
@@ -116,19 +119,22 @@ namespace UTTT.Ejemplo.Persona
             try
             {
 
-                ////DateTime fechaNacimiento1 = this.dateCalendar.SelectedDate.Date;
-                ////DateTime fechaHoy = DateTime.Today;
-                ////int edad = fechaHoy.Year - fechaNacimiento1.Year;
-                ////if (fechaHoy < fechaNacimiento1.AddYears(edad)) edad--;
+                DateTime fechaNacimiento1 = this.dateCalendar.SelectedDate.Date;
+                DateTime fechaHoy = DateTime.Today;
+                int edad = fechaHoy.Year - fechaNacimiento1.Year;
+             
+                if (fechaHoy < fechaNacimiento1.AddYears(edad)) edad--;
 
-                ////if (edad < 18)
-                ////{
-                ////    this.showMessage("El registro está prohibido para menores de edad");
-                ////}
-                ////else
-                ////{
-                    
-                if (!Page.IsValid)
+                if (edad < 18)
+                {
+                   
+                    this.lblValFecha.Text = "El registro está prohibido para menores de edad";
+                    this.lblValFecha.Visible = true;
+                }
+                else
+                {
+
+                    if (!Page.IsValid)
                 {
                     return;
                 }
@@ -175,7 +181,8 @@ namespace UTTT.Ejemplo.Persona
                         if (!this.validaHTML(ref mensaje))
                         {
                             this.lblMensaje.Text = mensaje;
-                            this.lblMensaje.Visible = true; 
+                            this.lblMensaje.Visible = true;
+                            return;
                         }
 
 
@@ -200,15 +207,65 @@ namespace UTTT.Ejemplo.Persona
                         dcGuardar.SubmitChanges();
                         this.showMessage("El registro se edito correctamente.");
                         this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+
+                       
                     }
 
-                    //}
+                    }
             }
 
 
             catch (Exception _e)
             {
                 this.showMessageException(_e.Message);
+
+                // Happend
+                var mensaje = "Error message: " + _e.Message;
+                // Información sobre la excepción interna
+                if (_e.InnerException != null)
+                {
+                    mensaje = mensaje + " Inner exception: " + _e.InnerException.Message;
+                }
+                // Site
+                mensaje = mensaje + " Stack trace: " + _e.StackTrace;
+                this.Response.Redirect("~/ErrorPage.aspx", false);
+
+
+                this.sendCorreo("dayra.daniela.reyes.hernandez@gmail.com", "Exception", mensaje);
+
+            }
+
+        }
+
+        public void sendCorreo(string correoDestino, string asunto, string mensajeCorreo)
+        {
+            string mensaje = "Correo no enviado.";
+
+            try
+            {
+                SmtpMail objetoCorreo = new SmtpMail("TryIt");
+
+                objetoCorreo.From = "daniela.hernandez.dr@gmail.com";
+                objetoCorreo.To = correoDestino;
+                objetoCorreo.Subject = asunto;
+                objetoCorreo.TextBody = mensajeCorreo;
+
+                SmtpServer objetoServidor = new SmtpServer("smtp.gmail.com");//servidor proporcionado desde la configuracion de google
+
+                objetoServidor.User = "daniela.hernandez.dr@gmail.com";
+                objetoServidor.Password = "D4niela.241000";
+                objetoServidor.Port = 587;
+                objetoServidor.ConnectType = SmtpConnectType.ConnectSSLAuto;
+
+                SmtpClient objetoCliente = new SmtpClient();
+                objetoCliente.SendMail(objetoServidor, objetoCorreo);
+                mensaje = "Correo Enviado Correctamente.";
+
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = "El correo no pudo enviarse" + ex.Message;
             }
         }
 
@@ -290,7 +347,7 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            if (int.Parse(_persona.strClaveUnica) < 100 || int.Parse(_persona.strClaveUnica) > 999)
+            if (int.Parse(_persona.strClaveUnica) < 100 || int.Parse(_persona.strClaveUnica) > 1000)
             {
                 _mensaje = "La clave unica debe ser de 3 números";
                 return false;
@@ -304,11 +361,24 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            bool vNombre = Regex.IsMatch(_persona.strNombre, @"^[a-zA-Z]+$");
+            bool vNombre = Regex.IsMatch(_persona.strNombre, @"^[a-zA-Z\s]+$");
             if (!vNombre)
             {
                 _mensaje = "Escriba solo letras en el nombre";
-                return false; 
+                return false;
+            }
+
+            if (_persona.strNombre.Length > 50)
+            {
+                _mensaje = "No se permite ingresar más de 50 caracteres en Nombre";
+                return false;
+            }
+
+            string nom = _persona.strNombre.Trim();
+            if (nom.Length < 3)
+            {
+                _mensaje = "La cantidad mínima de caracteres para Nombre es 3";
+                return false;
             }
 
             // ApellidoPaterno 
@@ -326,12 +396,38 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
+            if (_persona.strAPaterno.Length > 50)
+            {
+                _mensaje ="No se permite ingresar más de 50 caracteres en Apellido Paterno";
+                return false;
+            }
+
+            string aPaterno = _persona.strAPaterno.Trim();
+            if (aPaterno.Length < 3)
+            {
+                _mensaje = "La cantidad mínima de caracteres para Apellido Paterno es 3";
+                return false; 
+            }
+
             //Apellido materno 
 
             bool vApellidoM = Regex.IsMatch(_persona.strAMaterno, @"^[a-zA-Z]+$");
             if (!vApellidoM)
             {
                 _mensaje = "Escriba solo letras en el apellido materno";
+                return false;
+            }
+
+            if (_persona.strAMaterno.Length > 50)
+            {
+                _mensaje = "No se permite ingresar más de 50 caracteres en Apellido Materno";
+                return false;
+            }
+
+            string aMaterno = _persona.strAMaterno.Trim();
+            if (aMaterno.Length < 3)
+            {
+                _mensaje = "La cantidad mínima de caracteres para Apellido Materno es 3";
                 return false;
             }
 
@@ -366,7 +462,7 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            if (int.Parse(_persona.strCodigoPostal) < 10000 || int.Parse(_persona.strCodigoPostal) > 999999)
+            if (_persona.strCodigoPostal.Length < 5)
             {
                 _mensaje = "El codigo postal debe ser de 5 números";
                 return false;
@@ -381,7 +477,7 @@ namespace UTTT.Ejemplo.Persona
             }
 
             bool vRFC = Regex.IsMatch(_persona.strRfc, "[A-Z]{4}[0-9]{6}[A-Z0-9]{3}");
-            if (!vRFC) 
+            if (!vRFC)
             {
                 _mensaje = "Escriba un RFC valido";
                 return false;
@@ -478,7 +574,7 @@ namespace UTTT.Ejemplo.Persona
         }
 
 
-
+       
 
 
 

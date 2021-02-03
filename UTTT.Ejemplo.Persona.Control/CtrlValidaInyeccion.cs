@@ -12,7 +12,7 @@ namespace UTTT.Ejemplo.Persona.Control
         public bool htmlInyectionValida(String _informacion, ref string _mensaje, string _etiquetaReferente,
         ref System.Web.UI.WebControls.TextBox _control)
         {
-            Regex tagRegex = new Regex(@"<.?>|&.?;");
+            Regex tagRegex = new Regex(@"<.*?>|&.*?;");
             bool respuesta = tagRegex.IsMatch(_informacion);
             if (respuesta)
             {
