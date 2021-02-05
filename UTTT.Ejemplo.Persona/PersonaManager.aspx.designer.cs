@@ -78,6 +78,15 @@ namespace UTTT.Ejemplo.Persona
         protected global::System.Web.UI.WebControls.CustomValidator cvClave;
 
         /// <summary>
+        /// Control rvClave.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvClave;
+
+        /// <summary>
         /// Control txtNombre.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace UTTT.Ejemplo.Persona
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator cvNombre;
+
+        /// <summary>
+        /// Control cvNom2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvNom2;
 
         /// <summary>
         /// Control re2Nombre.
@@ -141,6 +159,15 @@ namespace UTTT.Ejemplo.Persona
         protected global::System.Web.UI.WebControls.CustomValidator cvAPaterno;
 
         /// <summary>
+        /// Control cvAP3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvAP3;
+
+        /// <summary>
         /// Control re2AP.
         /// </summary>
         /// <remarks>
@@ -166,6 +193,15 @@ namespace UTTT.Ejemplo.Persona
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator cvAMaterno;
+
+        /// <summary>
+        /// Control cvAM2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvAM2;
 
         /// <summary>
         /// Control reAP.

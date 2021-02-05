@@ -39,9 +39,14 @@ function validarForm() {
     }
 
     else if (clave.length < 3 || /^\s+$/.test(clave)) {
-        alert("La clave unica debe ser mayor a 3 letras");
+        alert("La clave unica debe ser mayor a 3 numeros");
         return false;
-    }
+     }
+
+     else if (clave < 100 || clave > 1000) {
+         //("La clave unica debe ser mayor a 3 numeros")
+         return false;
+     }
 
     else if (isNaN(clave)) {
         alert("Escriba solo números para la clave unica");

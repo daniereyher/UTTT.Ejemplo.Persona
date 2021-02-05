@@ -15,8 +15,12 @@
            args.IsValid=(args.Value.length >=3);
        }
 
-       function sizeLet(sender, args) {
-           args.IsValid = (args.Value.length >= 3 && args.Value.length <= 50);
+       function sizeLetMin(sender, args) {
+           args.IsValid = (args.Value.length >= 3);
+       }
+
+       function sizeLetMax(sender, args) {
+           args.IsValid = (args.Value.length <= 20);
        }
 
        function sizeC(sender, args) {
@@ -39,7 +43,7 @@
 
 
 </head>
-<body style="height: 910px">
+<body style="height: 910px; width: 1805px;">
     <form id="form1" runat="server" onsubmit="validarForm() ">
     <div style="font-family: 'Barlow Condensed ExtraLight'; font-size: xx-large; font-weight: bold; width: 1145px; margin-left: 89px;" align="center">
     
@@ -63,7 +67,7 @@
 
         <div style="width: 1014px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sexo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<asp:DropDownList ID="ddlSexo" runat="server" 
                 Height="25px" Width="253px">
-            </asp:DropDownList>
+            </asp:DropDownList> 
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlSexo" ErrorMessage="Seleccione masculino o femenino" InitialValue="-1"></asp:RequiredFieldValidator>
     </div>
 
@@ -80,8 +84,10 @@
 &nbsp;&nbsp;&nbsp;<asp:CustomValidator ID="cvClave" runat="server" BorderStyle="None" ErrorMessage="Escriba 3 numeros" ClientValidationFunction="size" ValidationGroup="facts" ControlToValidate="txtClaveUnica" ForeColor="#6666FF"></asp:CustomValidator>
         &nbsp;
        
+                    <asp:RangeValidator ID="rvClave" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="Escriba una clave unica valida" ForeColor="Black" MaximumValue="999" MinimumValue="100" Type="Integer"></asp:RangeValidator>
+       
                     </div>
-        <div style="width: 1390px">
+        <div style="width: 1891px">
         
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
@@ -89,29 +95,31 @@
                 ID="txtNombre" runat="server" Width="249px" ViewStateMode="Disabled" MaxLength="50"></asp:TextBox>
         
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtNombre" ErrorMessage="No ha escrito su nombre"></asp:RequiredFieldValidator>
-&nbsp; <asp:CustomValidator ID="cvNombre" runat="server" ErrorMessage="Escriba minimo 3 letras" ControlToValidate="txtNombre" ForeColor="#6666FF" ClientValidationFunction="sizeLet" OnServerValidate="cvNombre_ServerValidate"></asp:CustomValidator>
+&nbsp; <asp:CustomValidator ID="cvNombre" runat="server" ErrorMessage="Escriba minimo 3 letras" ControlToValidate="txtNombre" ForeColor="#6666FF" ClientValidationFunction="sizeLetMin" OnServerValidate="cvNombre_ServerValidate"></asp:CustomValidator>
                     &nbsp;
-                    <asp:RegularExpressionValidator ID="re2Nombre" 
+                    <asp:CustomValidator ID="cvNom2" runat="server" ClientValidationFunction="sizeLetMax" ControlToValidate="txtNombre" ErrorMessage="Escriba máximo 20 caracteres"></asp:CustomValidator>
+&nbsp;&nbsp;
+                    
+            <asp:RegularExpressionValidator ID="re2Nombre" 
             runat="server" ErrorMessage="Numeros no permitidos, eliminelos antes de continuar." 
-            ControlToValidate="txtNombre" ValidationExpression="^[a-zA-Z\s]*$" ForeColor="Black" 
+            ControlToValidate="txtNombre" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black" 
             ></asp:RegularExpressionValidator>
-        &nbsp;
                     
             </div>
-        <div style="width: 1430px"> 
+        <div style="width: 1633px"> 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
             A Paterno:&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox 
                 ID="txtAPaterno" runat="server" Width="249px" ViewStateMode="Disabled" MaxLength="50"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rvAp" runat="server" ErrorMessage="No ha escrito su apellido paterno" ControlToValidate="txtAPaterno"></asp:RequiredFieldValidator>
 &nbsp;
-            <asp:CustomValidator ID="cvAPaterno" runat="server" ClientValidationFunction="sizeLet" ControlToValidate="txtAPaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF"></asp:CustomValidator>
-            &nbsp;
-            <asp:RegularExpressionValidator ID="re2AP" 
-            runat="server" ErrorMessage="Espacios y numeros no permitidos, eliminelos antes de continuar." 
-            ControlToValidate="txtAPaterno" ValidationExpression="^[a-zA-Z]*$" ForeColor="Black" 
+            <asp:CustomValidator ID="cvAPaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAPaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF"></asp:CustomValidator>
+            &nbsp;<asp:CustomValidator ID="cvAP3" runat="server" ClientValidationFunction="sizeLetMax" ControlToValidate="txtAPaterno" ErrorMessage="Escriba máximo 20 caracteres"></asp:CustomValidator>
+&nbsp;<asp:RegularExpressionValidator ID="re2AP" 
+            runat="server" ErrorMessage="Numeros no permitidos, eliminelos antes de continuar." 
+            ControlToValidate="txtAPaterno" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black" 
             ></asp:RegularExpressionValidator>
         </div>
-        <div style="width: 1338px">
+        <div style="width: 1655px">
         
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
@@ -119,11 +127,12 @@
             <asp:TextBox ID="txtAMaterno" runat="server" Width="248px" 
                 ViewStateMode="Disabled" MaxLength="50"></asp:TextBox>
         
-            <asp:CustomValidator ID="cvAMaterno" runat="server" ClientValidationFunction="sizeLet" ControlToValidate="txtAMaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF"></asp:CustomValidator>
+            <asp:CustomValidator ID="cvAMaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAMaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF"></asp:CustomValidator>
         &nbsp;
-        <asp:RegularExpressionValidator ID="reAP" 
-            runat="server" ErrorMessage="Espacios y numeros no permitidos, eliminelos antes de continuar." 
-            ControlToValidate="txtAMaterno" ValidationExpression="^[a-zA-Z]*$" ForeColor="Black" 
+                    <asp:CustomValidator ID="cvAM2" runat="server" ClientValidationFunction="sizeLetMax" ControlToValidate="txtAMaterno" ErrorMessage="Escriba máximo 20 caracteres"></asp:CustomValidator>
+&nbsp;<asp:RegularExpressionValidator ID="reAP" 
+            runat="server" ErrorMessage="Numeros no permitidos, eliminelos antes de continuar." 
+            ControlToValidate="txtAMaterno" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black" 
             ></asp:RegularExpressionValidator>
         </div>
     <div>
@@ -133,7 +142,7 @@
             Fecha de nacimiento&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="lblValFecha" runat="server" ForeColor="Red" Text="valNacimiento" Visible="False"></asp:Label>
         </div>
-        <asp:Calendar ID="dateCalendar" runat="server" style="margin-left: 405px; margin-top: 8px;" Width="400px" BackColor="White" BorderColor="Black" ForeColor="Black" Height="220px" DayNameFormat="Shortest" Font-Names="Times New Roman" Font-Size="10pt" NextPrevFormat="FullMonth">
+        <asp:Calendar ID="dateCalendar" runat="server" style="margin-left: 405px; margin-top: 8px;" Width="400px" BackColor="White" BorderColor="Black" ForeColor="Black" Height="220px" DayNameFormat="Shortest" Font-Names="Times New Roman" Font-Size="10pt" NextPrevFormat="FullMonth" OnSelectionChanged="dateCalendar_SelectionChanged">
             <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" ForeColor="#333333" Height="10pt" />
             <DayStyle Width="14%" />
             <NextPrevStyle Font-Size="8pt" ForeColor="White" />
@@ -164,10 +173,10 @@
             RFC<asp:TextBox ID="txtRfc" runat="server" style="margin-left: 89px" Width="268px"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rfvRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="No ha escrito su RFC"></asp:RequiredFieldValidator>
 &nbsp;
-            <asp:RegularExpressionValidator ID="revRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="El RFC no esta escrito correctamente" ForeColor="Black" ValidationExpression="[A-Z]{4}[0-9]{6}[A-Z0-9]{3}"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="revRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="El RFC no esta escrito correctamente" ForeColor="Black" ValidationExpression="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$"></asp:RegularExpressionValidator>
         </p>
-        <p style="width: 97px; margin-left: 280px">
-            <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False"></asp:Label>
+        <p style="width: 416px; margin-left: 280px">
+            <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="16pt"></asp:Label>
         </p>
      
         <asp:Button ID="btnAceptar" runat="server" Text="Aceptar"

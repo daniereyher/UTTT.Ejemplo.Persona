@@ -94,10 +94,10 @@ namespace UTTT.Ejemplo.Persona
                         {
                             this.dateCalendar.TodaysDate = (DateTime)fechaNacimiento;
                             this.dateCalendar.SelectedDate = (DateTime)fechaNacimiento;
-
+                            
                         }
 
-                        this.setItem(ref this.ddlSexo, baseEntity.CatSexo.strValor);
+                        this.enSeleccionar(ref this.ddlSexo, baseEntity.CatSexo.strValor);
 
 
                     }                
@@ -133,9 +133,10 @@ namespace UTTT.Ejemplo.Persona
                 }
                 else
                 {
-
+                    
                     if (!Page.IsValid)
                 {
+                        
                     return;
                 }
 
@@ -161,12 +162,12 @@ namespace UTTT.Ejemplo.Persona
 
                         String mensaje = String.Empty;
 
-                        if(!this.validacion(persona, ref mensaje))
+                        if (!this.validacion(persona, ref mensaje))
                         {
-                            this.lblMensaje.Text= mensaje;
+                            this.lblMensaje.Text = mensaje;
                             this.lblMensaje.Visible = true;
                             return;
-                        
+
                         }
 
                         if (!this.validaSql(ref mensaje))
@@ -186,12 +187,14 @@ namespace UTTT.Ejemplo.Persona
                         }
 
 
-                    dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().InsertOnSubmit(persona);
+                        dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().InsertOnSubmit(persona);
                         dcGuardar.SubmitChanges();
                         this.showMessage("El registro se agrego correctamente.");
                         this.Response.Redirect("~/PersonaPrincipal.aspx", false);
 
                     }
+
+                    // Seccion de editar un registro 
 
                     if (this.idPersona > 0)
                     {
@@ -204,11 +207,42 @@ namespace UTTT.Ejemplo.Persona
                         persona.strCodigoPostal = this.txtCP.Text.Trim();
                         persona.strRfc = this.txtRfc.Text.Trim();
                         persona.idCatSexo = int.Parse(this.ddlSexo.Text);
+                     
+                        persona.datFechaNacimiento = Convert.ToDateTime(this.dateCalendar.SelectedDate.Date);
+                       
+
+                        String mensaje = String.Empty;
+
+                        if (!this.validacion(persona, ref mensaje))
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+
+                        }
+
+                        if (!this.validaSql(ref mensaje))
+
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+
+
+                        if (!this.validaHTML(ref mensaje))
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+
+                     
                         dcGuardar.SubmitChanges();
                         this.showMessage("El registro se edito correctamente.");
                         this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+                        
 
-                       
                     }
 
                     }
@@ -302,6 +336,21 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
+
+        public void enSeleccionar(ref DropDownList _control, String _value)
+        {
+            foreach(ListItem item in _control.Items)
+            {
+                if (item.Value != _value)
+                    item.Enabled = false;
+
+                break;
+
+            }
+
+            _control.Items.FindByText(_value).Selected = true;
+        }
+
         #endregion
 
         #region Metodos
@@ -349,9 +398,16 @@ namespace UTTT.Ejemplo.Persona
 
             if (int.Parse(_persona.strClaveUnica) < 100 || int.Parse(_persona.strClaveUnica) > 1000)
             {
-                _mensaje = "La clave unica debe ser de 3 números";
+                _mensaje = "La clave unica debe ser de 3 números válidos";
                 return false;
             }
+
+            if (_persona.strClaveUnica.Length < 3)
+            {
+                _mensaje = "La clave unica debe ser de 3 numeros";
+                return false;
+            }
+
 
             // Nombre 
 
@@ -361,24 +417,17 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            bool vNombre = Regex.IsMatch(_persona.strNombre, @"^[a-zA-Z\s]+$");
+            bool vNombre = Regex.IsMatch(_persona.strNombre, @"^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$");
             if (!vNombre)
             {
                 _mensaje = "Escriba solo letras en el nombre";
                 return false;
             }
 
-            if (_persona.strNombre.Length > 50)
+            if(_persona.strNombre.Length <3 || _persona.strNombre.Length>20)
             {
-                _mensaje = "No se permite ingresar más de 50 caracteres en Nombre";
-                return false;
-            }
-
-            string nom = _persona.strNombre.Trim();
-            if (nom.Length < 3)
-            {
-                _mensaje = "La cantidad mínima de caracteres para Nombre es 3";
-                return false;
+                _mensaje = "El campo nombre permite la entrada de 3 a 20 caracteres";
+                return false; 
             }
 
             // ApellidoPaterno 
@@ -389,16 +438,16 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            bool vApellidoP = Regex.IsMatch(_persona.strAPaterno, @"^[a-zA-Z]+$");
+            bool vApellidoP = Regex.IsMatch(_persona.strAPaterno, @"^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$");
             if (!vApellidoP)
             {
                 _mensaje = "Escriba solo letras en el apellido paterno";
                 return false;
             }
 
-            if (_persona.strAPaterno.Length > 50)
+            if (_persona.strAPaterno.Length < 3 || _persona.strAPaterno.Length > 20)
             {
-                _mensaje ="No se permite ingresar más de 50 caracteres en Apellido Paterno";
+                _mensaje = "El campo apellido paterno permite la entrada de 3 a 20 caracteres";
                 return false;
             }
 
@@ -411,16 +460,16 @@ namespace UTTT.Ejemplo.Persona
 
             //Apellido materno 
 
-            bool vApellidoM = Regex.IsMatch(_persona.strAMaterno, @"^[a-zA-Z]+$");
+            bool vApellidoM = Regex.IsMatch(_persona.strAMaterno, @"^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$");
             if (!vApellidoM)
             {
                 _mensaje = "Escriba solo letras en el apellido materno";
                 return false;
             }
 
-            if (_persona.strAMaterno.Length > 50)
+            if (_persona.strAMaterno.Length < 3 || _persona.strAMaterno.Length > 20)
             {
-                _mensaje = "No se permite ingresar más de 50 caracteres en Apellido Materno";
+                _mensaje = "El campo apellido materno permite la entrada de 3 a 20 caracteres";
                 return false;
             }
 
@@ -476,7 +525,7 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            bool vRFC = Regex.IsMatch(_persona.strRfc, "[A-Z]{4}[0-9]{6}[A-Z0-9]{3}");
+            bool vRFC = Regex.IsMatch(_persona.strRfc, @"^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$");
             if (!vRFC)
             {
                 _mensaje = "Escriba un RFC valido";
@@ -604,6 +653,11 @@ namespace UTTT.Ejemplo.Persona
         }
 
         protected void cvNombre_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+
+        }
+
+        protected void dateCalendar_SelectionChanged(object sender, EventArgs e)
         {
 
         }
