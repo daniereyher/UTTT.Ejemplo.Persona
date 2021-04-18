@@ -14,6 +14,7 @@ using UTTT.Ejemplo.Persona.Control;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
 using System.Text.RegularExpressions;
 using EASendMail;
+using AjaxControlToolkit;
 
 
 
@@ -37,7 +38,14 @@ namespace UTTT.Ejemplo.Persona
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (Session["strUsuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+
+               
+            }
+            
+                try
             {
                 this.Response.Buffer = true;
                 this.session = (SessionManager)this.Session["SessionManager"];
@@ -60,6 +68,7 @@ namespace UTTT.Ejemplo.Persona
                     {
                         this.session.Parametros.Add("baseEntity", this.baseEntity);
                     }
+
                     List<CatSexo> lista = dcGlobal.GetTable<CatSexo>().ToList();
                     CatSexo catTemp = new CatSexo();
                     catTemp.id = -1;
@@ -71,13 +80,35 @@ namespace UTTT.Ejemplo.Persona
                     this.ddlSexo.DataBind();
 
                     this.ddlSexo.SelectedIndexChanged += new EventHandler(ddlSexo_SelectedIndexChanged);
-                    this.ddlSexo.AutoPostBack = true;
+                    this.ddlSexo.AutoPostBack = false;
+
+                    //Estado civil ddl
+
+                    List<CatEstadoCivil> listaEstadoCivil = dcGlobal.GetTable<CatEstadoCivil>().ToList();
+                    CatEstadoCivil catEstadoCivilTemp = new CatEstadoCivil();
+                    catEstadoCivilTemp.id = -1;
+                    catEstadoCivilTemp.strValor = "Seleccionar";
+                    listaEstadoCivil.Insert(0, catEstadoCivilTemp);
+                    this.ddlEstadoCivil.DataTextField = "strValor";
+                    this.ddlEstadoCivil.DataValueField = "id";
+                    this.ddlEstadoCivil.DataSource = listaEstadoCivil;
+                    this.ddlEstadoCivil.DataBind();
+
+                    this.ddlEstadoCivil.SelectedIndexChanged += new EventHandler(ddlEstadoCivil_SelectedIndexChanged);
+                    this.ddlEstadoCivil.AutoPostBack = false;
+
+
+
                     if (this.idPersona == 0)
                     {
                         this.lblAccion.Text = "Agregar";
-                        DateTime tiempo = new DateTime((DateTime.Now.Year)-21, DateTime.Now.Month, DateTime.Now.Day);
-                        this.dateCalendar.TodaysDate = tiempo;
-                        this.dateCalendar.SelectedDate = tiempo;
+                        DateTime tiempo = new DateTime((DateTime.Now.Year), DateTime.Now.Month, DateTime.Now.Day);
+                        this.TextBox1.Text = DateTime.Today.ToString("yyyy-MM-dd");
+                        this.CalendarExtender.SelectedDate = tiempo;
+                        this.CalendarExtender.EndDate = tiempo;
+                        ///this.TextBox1.Text = Convert.ToString(tiempo);
+
+                        
                     }
                     else
                     {
@@ -86,18 +117,37 @@ namespace UTTT.Ejemplo.Persona
                         this.txtAPaterno.Text = this.baseEntity.strAPaterno;
                         this.txtAMaterno.Text = this.baseEntity.strAMaterno;
                         this.txtClaveUnica.Text = this.baseEntity.strClaveUnica;
+                        this.txtRfc.Text = this.baseEntity.strRfc;
                         this.txtEmail.Text = this.baseEntity.strCorreoElectronico;
                         this.txtCP.Text = this.baseEntity.strCodigoPostal;
-                        this.txtRfc.Text = this.baseEntity.strRfc;
-                        DateTime? fechaNacimiento = this.baseEntity.datFechaNacimiento;
-                        if (fechaNacimiento != null)
-                        {
-                            this.dateCalendar.TodaysDate = (DateTime)fechaNacimiento;
-                            this.dateCalendar.SelectedDate = (DateTime)fechaNacimiento;
-                            
-                        }
+
+                        //DateTime? fechaNacimiento = this.baseEntity.datFechaNacimiento;
+
+                        this.TextBox1.Text = this.baseEntity.datFechaNacimiento;
+
+                        //string dt = TextBox1.Text;
+                        //DateTime fechaNacimiento = Convert.ToDateTime(dt);
+
+                        //if (fechaNacimiento != null)
+                        //{
+                        //    //this.dateCalendar.TodaysDate = (DateTime)fechaNacimiento;
+                        //    //this.dateCalendar.SelectedDate = (DateTime)fechaNacimiento;
+                        //    //txtDateCalendar.Text = fechaNacimiento.ToString();
+                        //    //TextBox1.Text = fechaNacimiento.ToString();
+
+                        //    //DateTime tiempo = new DateTime((DateTime.Now.Year), DateTime.Now.Month, DateTime.Now.Day);
+                        //    //this.CalendarExtender.SelectedDate = fechaNacimiento;
+                        //    //this.CalendarExtender.EndDate = fechaNacimiento;
+                        //    //this.TextBox1.Text = Convert.ToString(fechaNacimiento);
+
+                           
+                        //    this.CalendarExtender.SelectedDate = fechaNacimiento;
+                        //    this.CalendarExtender.EndDate = fechaNacimiento;
+                        //    this.TextBox1.Text = Convert.ToString(dt);
+                        //}
 
                         this.enSeleccionar(ref this.ddlSexo, baseEntity.CatSexo.strValor);
+                        this.enSeleccionar(ref this.ddlEstadoCivil, baseEntity.CatEstadoCivil.strValor);
 
 
                     }                
@@ -118,29 +168,26 @@ namespace UTTT.Ejemplo.Persona
 
             try
             {
-
-                DateTime fechaNacimiento1 = this.dateCalendar.SelectedDate.Date;
+                DateTime fecha = Convert.ToDateTime(this.TextBox1.Text);
                 DateTime fechaHoy = DateTime.Today;
-                int edad = fechaHoy.Year - fechaNacimiento1.Year;
-             
-                if (fechaHoy < fechaNacimiento1.AddYears(edad)) edad--;
+                int edad = fechaHoy.Year - fecha.Year;
+                if (fechaHoy < fecha.AddYears(edad)) edad--;
 
                 if (edad < 18)
                 {
-                   
-                    this.lblValFecha.Text = "El registro está prohibido para menores de edad";
+                    this.lblValFecha.Text = "El registro está prohibido para menores de edad.*";
                     this.lblValFecha.Visible = true;
                 }
                 else
                 {
-                    
                     if (!Page.IsValid)
-                {
-                        
-                    return;
-                }
+                    {
+                        return;
+                    }
 
-                DataContext dcGuardar = new DcGeneralDataContext();
+                        
+
+                        DataContext dcGuardar = new DcGeneralDataContext();
                     UTTT.Ejemplo.Linq.Data.Entity.Persona persona = new Linq.Data.Entity.Persona();
 
                     if (this.idPersona == 0)
@@ -150,15 +197,16 @@ namespace UTTT.Ejemplo.Persona
                         persona.strNombre = this.txtNombre.Text.Trim();
                         persona.strAMaterno = this.txtAMaterno.Text.Trim();
                         persona.strAPaterno = this.txtAPaterno.Text.Trim();
+                        persona.idCatSexo = int.Parse(this.ddlSexo.Text);
+                        persona.idCatEstadoCivil = int.Parse(this.ddlEstadoCivil.Text);
+                        persona.datFechaNacimiento = this.TextBox1.Text.Trim();
+                        //DateTime fechaNacimiento = Convert.ToDateTime(TextBox1.Text);
+                        //persona.datFechaNacimiento = fechaNacimiento;
                         persona.strCorreoElectronico = this.txtEmail.Text.Trim();
                         persona.strCodigoPostal = this.txtCP.Text.Trim();
                         persona.strRfc = this.txtRfc.Text.Trim();
-
-                        persona.idCatSexo = int.Parse(this.ddlSexo.Text);
-
-                        DateTime fechaNacimiento = this.dateCalendar.SelectedDate.Date;
-                        persona.datFechaNacimiento = fechaNacimiento;
-
+                        
+                        
 
                         String mensaje = String.Empty;
 
@@ -203,13 +251,16 @@ namespace UTTT.Ejemplo.Persona
                         persona.strNombre = this.txtNombre.Text.Trim();
                         persona.strAMaterno = this.txtAMaterno.Text.Trim();
                         persona.strAPaterno = this.txtAPaterno.Text.Trim();
+                        persona.idCatSexo = int.Parse(this.ddlSexo.Text);
+                        persona.idCatEstadoCivil = int.Parse(this.ddlEstadoCivil.Text);
+                        persona.datFechaNacimiento = this.TextBox1.Text.Trim();
+                        //DateTime fechaNacimiento = Convert.ToDateTime(TextBox1.Text);
+                        //persona.datFechaNacimiento = fechaNacimiento;
                         persona.strCorreoElectronico = this.txtEmail.Text.Trim();
                         persona.strCodigoPostal = this.txtCP.Text.Trim();
                         persona.strRfc = this.txtRfc.Text.Trim();
-                        persona.idCatSexo = int.Parse(this.ddlSexo.Text);
-                     
-                        persona.datFechaNacimiento = Convert.ToDateTime(this.dateCalendar.SelectedDate.Date);
-                       
+                        
+
 
                         String mensaje = String.Empty;
 
@@ -337,6 +388,7 @@ namespace UTTT.Ejemplo.Persona
         }
 
 
+
         public void enSeleccionar(ref DropDownList _control, String _value)
         {
             foreach(ListItem item in _control.Items)
@@ -351,6 +403,19 @@ namespace UTTT.Ejemplo.Persona
             _control.Items.FindByText(_value).Selected = true;
         }
 
+        public void estSeleccionar(ref DropDownList _control, String _value)
+        {
+            foreach (ListItem item in _control.Items)
+            {
+                if (item.Value != _value)
+                    item.Enabled = false;
+
+                break;
+
+            }
+
+            _control.Items.FindByText(_value).Selected = true;
+        }
         #endregion
 
         #region Metodos
@@ -623,20 +688,6 @@ namespace UTTT.Ejemplo.Persona
         }
 
 
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
         protected void TextBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -662,6 +713,29 @@ namespace UTTT.Ejemplo.Persona
 
         }
 
+        protected void TextBox1_TextChanged2(object sender, EventArgs e)
+        {
 
+        }
+
+        protected void ddlEstadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int idEstadoCivil = int.Parse(this.ddlEstadoCivil.Text);
+                Expression<Func<CatEstadoCivil, bool>> predicateEstadoCivil = c => c.id == idEstadoCivil;
+                predicateEstadoCivil.Compile();
+                List<CatEstadoCivil> lista = dcGlobal.GetTable<CatEstadoCivil>().Where(predicateEstadoCivil).ToList();
+                CatEstadoCivil catEstadoCivilTemp = new CatEstadoCivil();
+                this.ddlEstadoCivil.DataTextField = "strValor";
+                this.ddlEstadoCivil.DataValueField = "id";
+                this.ddlEstadoCivil.DataSource = lista;
+                this.ddlEstadoCivil.DataBind();
+            }
+            catch (Exception)
+            {
+                this.showMessage("Ha ocurrido un error inesperado");
+            }
+        }
     }
 }

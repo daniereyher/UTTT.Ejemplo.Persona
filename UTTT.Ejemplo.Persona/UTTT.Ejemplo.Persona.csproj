@@ -48,8 +48,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="EASendMail, Version=7.7.0.6, Culture=neutral, PublicKeyToken=88adb80ecd66540b, processorArchitecture=MSIL">
       <HintPath>..\packages\EASendMail.7.7.0.6\lib\net40\EASendMail.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleCrypto, Version=26.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleCrypto.0.3.30.26\lib\SimpleCrypto.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -93,16 +99,22 @@
     <Content Include="DireccionExtraManager.aspx" />
     <Content Include="DireccionManager.aspx" />
     <Content Include="ErrorPage.aspx" />
+    <Content Include="Images\Calendar.png" />
     <Content Include="Images\delrecord_16x16.png" />
     <Content Include="Images\editrecord_16x16.png" />
+    <Content Include="Images\Login.png" />
+    <Content Include="Images\Personas.png" />
     <Content Include="Images\Pixir-1-1-300x181.png" />
     <Content Include="Images\printrecord_16x16.png" />
     <Content Include="Images\sad.png" />
+    <Content Include="Images\Usuarios.png" />
+    <Content Include="Inicio.aspx" />
     <Content Include="javaScripFile.js" />
     <Content Include="javaScripPage.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="PersonaManager.aspx" />
     <Content Include="PersonaPrincipal.aspx" />
-    <Content Include="Prueba.aspx" />
+    <Content Include="RecuperarContraseña.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -206,6 +218,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="UsuarioManager.aspx" />
+    <Content Include="UsuarioPrincipal.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -234,6 +248,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Desencriptar.cs" />
     <Compile Include="direccion.aspx.cs">
       <DependentUpon>direccion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -255,6 +270,7 @@
     <Compile Include="DireccionManager.aspx.designer.cs">
       <DependentUpon>DireccionManager.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EncriptarPass.cs" />
     <Compile Include="ErrorPage.aspx.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -262,12 +278,26 @@
     <Compile Include="ErrorPage.aspx.designer.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="javaScripPage.aspx.cs">
       <DependentUpon>javaScripPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="javaScripPage.aspx.designer.cs">
       <DependentUpon>javaScripPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="paginaMaster.Master.cs">
       <DependentUpon>paginaMaster.Master</DependentUpon>
@@ -291,12 +321,27 @@
       <DependentUpon>PersonaPrincipal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Prueba.aspx.cs">
-      <DependentUpon>Prueba.aspx</DependentUpon>
+    <Compile Include="RecuperarContraseña.aspx.cs">
+      <DependentUpon>RecuperarContraseña.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Prueba.aspx.designer.cs">
-      <DependentUpon>Prueba.aspx</DependentUpon>
+    <Compile Include="RecuperarContraseña.aspx.designer.cs">
+      <DependentUpon>RecuperarContraseña.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Seguridad.cs" />
+    <Compile Include="UsuarioManager.aspx.cs">
+      <DependentUpon>UsuarioManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuarioManager.aspx.designer.cs">
+      <DependentUpon>UsuarioManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioPrincipal.aspx.cs">
+      <DependentUpon>UsuarioPrincipal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuarioPrincipal.aspx.designer.cs">
+      <DependentUpon>UsuarioPrincipal.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +361,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

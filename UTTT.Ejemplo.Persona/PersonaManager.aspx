@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaManager" debug="false"%>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,13 +11,14 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"/>
 
     
 
+
     <title>Formulario</title>
 
-     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+     <%--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />--%>
     
      
     <script src="javaScripFile.js" type="text/javascript"></script>  
@@ -55,7 +58,8 @@
 </head>
 <body>
     <div class="container">
-        <form id="form1" runat="server">
+        <form id="form1" class="form-horizontal" runat="server">
+
             <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
 
                 <asp:Label ID="lblPersona" runat="server" Text="Persona" Font-Size="XX-Large"></asp:Label>
@@ -66,112 +70,171 @@
             <br />
             <br />
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="col-form-label" ID="lblSexo" runat="server" Text="Sexo" Font-Size="large"></asp:Label>
-               
-              <div class="form-group col-md">
-                  <asp:DropDownList class="btn btn-dark" CssClass="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" ID="ddlSexo" runat="server"></asp:DropDownList>
-                  &nbsp;
-                  <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlSexo" ErrorMessage="Seleccione masculino o femenino" InitialValue="-1"></asp:RequiredFieldValidator>
-              </div>
-                
-            <asp:Label class="col-form-label" ID="lblClave" runat="server" Text="Clave unica:" Font-Size="large"></asp:Label>
-                <div class="form-group col-md">
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="lblSexo" runat="server" Text="Sexo" Font-Size="large"></asp:Label>
+
+                <div class="col-md-4">
+
+                    <asp:DropDownList class="form-control border-secondary" ID="ddlSexo" runat="server"></asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvSex" runat="server" ControlToValidate="ddlSexo" ErrorMessage="Seleccione masculino o femenino.*" InitialValue="-1" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+            <br />
+
+
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="lblClave" runat="server" Text="Clave única:" Font-Size="Large"></asp:Label>
+                <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtClaveUnica" minlength="3" MaxLength="3" onkeypress="return Nums(event);" runat="server" ViewStateMode="Disabled"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="No ha escrito una clave unica"></asp:RequiredFieldValidator>
-                     <br />
-                    <asp:CustomValidator ID="cvClave" runat="server" BorderStyle="None" ErrorMessage="Escriba 3 numeros" ClientValidationFunction="size" ValidationGroup="facts" ControlToValidate="txtClaveUnica" ForeColor="#6666FF"></asp:CustomValidator>
-                     <br />
-                    <asp:RangeValidator ID="rvClave" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="Escriba una clave unica valida" ForeColor="Black" MaximumValue="999" MinimumValue="100" Type="Integer"></asp:RangeValidator>
+                    <asp:RequiredFieldValidator ID="rfvClave" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="No ha escrito una clave única.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:CustomValidator ID="cvClave" runat="server" BorderStyle="None" ErrorMessage="Escriba 3 números.*" ClientValidationFunction="size" ValidationGroup="facts" ControlToValidate="txtClaveUnica" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:CustomValidator>
+                    <br />
+                    <asp:RangeValidator ID="rvClave" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="Escriba una clave única valida.*" ForeColor="Black" MaximumValue="999" MinimumValue="100" Type="Integer" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RangeValidator>
                 </div>
             </div>
 
-
-            <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="col-form-label" ID="Label3" runat="server" Text="Nombre:" Font-Size="large"></asp:Label>
-                <div class="form-group col-md">
+            <br />
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label3" runat="server" Text="Nombre:" Font-Size="large"></asp:Label>
+                <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtNombre" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtNombre" ErrorMessage="No ha escrito su nombre"></asp:RequiredFieldValidator>
-                     <br />
-                    <asp:CustomValidator ID="cvNombre" runat="server" ErrorMessage="Escriba minimo 3 letras" ControlToValidate="txtNombre" ForeColor="#6666FF" ClientValidationFunction="sizeLetMin" OnServerValidate="cvNombre_ServerValidate"></asp:CustomValidator>
-                     <br />
-                    <asp:RegularExpressionValidator ID="re2Nombre" runat="server" ErrorMessage="Numeros no permitidos." ControlToValidate="txtNombre" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="No ha escrito su nombre.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:CustomValidator ID="cvNombre" runat="server" ErrorMessage="Escriba minímo 3 letras.*" ControlToValidate="txtNombre" ForeColor="#6666FF" ClientValidationFunction="sizeLetMin" OnServerValidate="cvNombre_ServerValidate" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:CustomValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="re2Nombre" runat="server" ErrorMessage="Números no permitidos.*" ControlToValidate="txtNombre" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                 </div>
-                <asp:Label class="col-form-label" ID="Label5" runat="server" Text="Apellido Paterno:" Font-Size="large"></asp:Label>
-                <div class="form-group col-md">
+            </div>
+            <br />
+
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label5" runat="server" Text="Apellido Paterno:" Font-Size="large"></asp:Label>
+                <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtAPaterno" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rvAp" runat="server" ErrorMessage="No ha escrito su apellido paterno" ControlToValidate="txtAPaterno"></asp:RequiredFieldValidator>
-                     <br />
-                    <asp:CustomValidator ID="cvAPaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAPaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF"></asp:CustomValidator>
-                     <br />
-                    <asp:RegularExpressionValidator ID="re2AP" runat="server" ErrorMessage="Numeros no permitidos." ControlToValidate="txtAPaterno" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rvAp" runat="server" ErrorMessage="No ha escrito su apellido paterno.*" ControlToValidate="txtAPaterno" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:CustomValidator ID="cvAPaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAPaterno" ErrorMessage="Escriba minímo 3 letras.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Overline="False" Font-Size="Small"></asp:CustomValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="re2AP" runat="server" ErrorMessage="Números no permitidos.*" ControlToValidate="txtAPaterno" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                 </div>
-                <asp:Label class="col-form-label" ID="Label6" runat="server" Text="Apellido Materno:" Font-Size="large"></asp:Label>
-                <div class="form-group col-md">
+            </div>
+
+            <br />
+
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label6" runat="server" Text="Apellido Materno:" Font-Size="large"></asp:Label>
+                <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtAMaterno" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
-                    <asp:CustomValidator ID="cvAMaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAMaterno" ErrorMessage="Escriba minimo 3 letras" ForeColor="#6666FF"></asp:CustomValidator>
-                     <br />
-                    <asp:RegularExpressionValidator ID="reAP" runat="server" ErrorMessage="Numeros no permitidos." ControlToValidate="txtAMaterno" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black"></asp:RegularExpressionValidator>
-
+                    <asp:CustomValidator ID="cvAMaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAMaterno" ErrorMessage="Escriba minímo 3 letras.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Size="Small" Font-Strikeout="False"></asp:CustomValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="reAP" runat="server" ErrorMessage="Números no permitidos.*" ControlToValidate="txtAMaterno" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚÑñ\s]*$" ForeColor="Black" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                 </div>
             </div>
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="col-form-label" ID="Label7" runat="server" Text="Fecha de nacimiento:" Font-Size="large"></asp:Label>
-                 <br />
-                <asp:Label class="col-form-label" ID="lblValFecha" runat="server" ForeColor="Red" Text="valNacimiento" Visible="False"></asp:Label>
-                <div>
+            <br />
+
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label runat="server" class="control-label col-sm-4" Text="Fecha de nacimiento:" for="FechaNac" Font-Size="large"></asp:Label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i>
+                            <asp:ImageButton ID="btnCa" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/Calendar.png"></asp:ImageButton></i></span>
+
+                        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                        <asp:TextBox class="form-control" ID="TextBox1" runat="server" ViewStateMode="Disabled" MinLength="10" MaxLength="10"></asp:TextBox>
+
+                    </div>
+
+                    <asp:RequiredFieldValidator ID="rfvFechaNaci" runat="server" ControlToValidate="TextBox1" ErrorMessage="No ha escrito su fecha de nacimiento.*" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
                     <br />
-                    <div class="form-group col-md">
-                           <br/>
-                            <asp:Calendar ID="dateCalendar" runat="server" Style="margin-left: 0px; margin-top: 8px;" Width="400px" BackColor="White" BorderColor="Black" ForeColor="Black" Height="220px" DayNameFormat="Shortest" Font-Names="Times New Roman" Font-Size="10pt" NextPrevFormat="FullMonth" OnSelectionChanged="dateCalendar_SelectionChanged">
-                                <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" ForeColor="#333333" Height="10pt" />
-                                <DayStyle Width="14%" />
-                                <NextPrevStyle Font-Size="8pt" ForeColor="White" />
-                                <OtherMonthDayStyle ForeColor="#999999" />
-                                <SelectedDayStyle BackColor="#CC3333" ForeColor="White" />
-                                <SelectorStyle BackColor="#CCCCCC" Font-Bold="True" Font-Names="Verdana" Font-Size="8pt" ForeColor="#333333" Width="1%" />
-                                <TitleStyle BackColor="#E1A8C5" Font-Bold="True" Font-Size="13pt" ForeColor="White" Height="14pt" />
-                                <TodayDayStyle BackColor="#CCCC99" />
-                            </asp:Calendar>
-                        </div>
+                    <asp:RegularExpressionValidator ID="rexFecha" runat="server" ErrorMessage="Formato de fecha incorrecta.*" ControlToValidate="TextBox1" ValidationExpression="(((19|20)([2468][048]|[13579][26]|0[48])|2000)[/-]02[/-]29|((19|20)[0-9]{2}[/-](0[4678]|1[02])[/-](0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}[/-](0[1359]|11)[/-](0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}[/-]02[/-](0[1-9]|1[0-9]|2[0-8])))" ForeColor="Black" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
+                    <br />
+                    <asp:Label ID="lblValFecha" runat="server" ForeColor="Red" Text="valNacimiento" Visible="False" Font-Bold="True" Font-Italic="True" Font-Overline="False" Font-Size="Small"></asp:Label>
+
+                    <ajaxToolkit:CalendarExtender ID="CalendarExtender" runat="server" Format="yyyy-MM-dd" PopupPosition="BottomLeft" BehaviorID="Calendar1" PopupButtonID="btnCa" TargetControlID="TextBox1"></ajaxToolkit:CalendarExtender>
+
+                </div>
+
+
+            </div>
+
+
+            <%-- <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label runat="server" Text="Fecha de Nacimiento:" CssClass="control-label col-sm-4" for="FechaNac"></asp:Label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i>
+                            <asp:ImageButton ID="btnCa" runat="server" Height="20px" Width="20px" ImageUrl="~/Images/Calendar.jpg"></asp:ImageButton></i></span>
+
+                        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control border border-secondary"></asp:TextBox>
+
+                    </div>
+
+                    <asp:RequiredFieldValidator ID="rfvFechaNaci" runat="server" ControlToValidate="TextBox1" ErrorMessage="Fecha de Nacimiento Obligatoria*"></asp:RequiredFieldValidator> 
                     
+                    <asp:Label class="control-label col-sm-5" ID="lblValFecha" runat="server" ForeColor="Red" Text="valNacimiento" Visible="False"></asp:Label>
+                    
+                    <ajaxToolkit:CalendarExtender ID="CalendarExtender" runat="server" Format="dd/MM/yyyy" PopupPosition="BottomRight" BehaviorID="Calendar1" PopupButtonID="btnCa" TargetControlID="TextBox1"></ajaxToolkit:CalendarExtender>
+                
                 </div>
-            </div>
-            <div class="form-row">
-            </div>
-            <div class="form-row">
-            </div>
 
-            <br />
-            <br />
+                <asp:RegularExpressionValidator class="col-sm-6" ID="rexFecha" runat="server" ErrorMessage="Formato de fecha incorrecta." ControlToValidate="TextBox1" ValidationExpression="^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$" ForeColor="Black"></asp:RegularExpressionValidator>
+            </div>--%>
+
+
+            <%-- <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
             <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="col-form-label" ID="Label1" runat="server" Text="Correo electronico:"></asp:Label>
-                <div class="form-group col-md-5">
-                    <asp:TextBox class="form-control" ID="txtEmail" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvCorreo" runat="server" ControlToValidate="txtEmail" ErrorMessage="No ha escrito un correo electronico"></asp:RequiredFieldValidator>
+                <asp:Label class="col-sm-2 col-form-label" ID="lblFecha" runat="server" Text="Fecha de nacimiento:" Font-Size="large"></asp:Label>
+                <div class="col-sm-4">
+                    <asp:TextBox class="form-control" ID="TextBox1" runat="server" CssClass="form-control col-sm-auto" ></asp:TextBox>
+                    <asp:Label class="control-label col-sm-5" ID="lblValFecha" runat="server" ForeColor="Red" Text="valNacimiento" Visible="False"></asp:Label>
                     <br />
-                    <asp:RegularExpressionValidator ID="revCorreo" runat="server" ControlToValidate="txtEmail" ErrorMessage="Escriba un correo electronico valido" ForeColor="Black" ValidationExpression="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"></asp:RegularExpressionValidator>
+                    <%--<asp:RegularExpressionValidator class="col-sm-6" ID="rexFecha" runat="server" ErrorMessage="Formato de fecha incorrecta." ControlToValidate="TextBox1" ValidationExpression="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})(\s)([0-1][0-9]|2[0-3])(:)([0-5][0-9])(:)([0-5][0-9])\s?(?:[aApP](\.?)[mM]\1)?$" ForeColor="Black"></asp:RegularExpressionValidator>--%>
+
+            <%--</div>
+                <div class="col-sm-5">
+                    <asp:ImageButton class="form-control col-sm-auto" ID="btnCa" runat="server" ImageUrl="~/Images/Calendar.jpg" Height="50px" Width="50px" />
+                    <ajaxToolkit:CalendarExtender ID="CalendarExtender" runat="server" Format="dd-MM-yyyy" PopupPosition="BottomRight" BehaviorID="CalendarExtender" PopupButtonID="btnCa" TargetControlID="TextBox1" />
+
+                </div>
+            </div>--%>
+            <br />
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label1" runat="server" Text="E-mail:" Font-Size="Large"></asp:Label>
+                <div class="col-md-4">
+                    <asp:TextBox class="form-control" ID="txtEmail" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvCorreo" runat="server" ControlToValidate="txtEmail" ErrorMessage="No ha escrito un correo electronico.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="revCorreo" runat="server" ControlToValidate="txtEmail" ErrorMessage="Escriba un correo electrónico valido.*" ForeColor="Black" ValidationExpression="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                 </div>
             </div>
+            <br />
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="col-form-label" ID="Label2" runat="server" Text="Codigo postal"></asp:Label>
-                <div class="form-group col">
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label2" runat="server" Text="Código postal:" Font-Size="Large"></asp:Label>
+                <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtCP" runat="server" OnTextChanged="TextBox1_TextChanged1" MaxLength="5" onkeypress="return Nums(event);"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvCodigoP" runat="server" ControlToValidate="txtCP" ErrorMessage="No ha escrito su codigo postal"></asp:RequiredFieldValidator>
-                     <br />
-                    <asp:CustomValidator ID="cvCP" runat="server" ErrorMessage="Escriba 5 numeros" ClientValidationFunction="sizeC" ValidationGroup="facts" ControlToValidate="txtCP" ForeColor="#6666FF"></asp:CustomValidator>
-                     <br />
-                    <asp:RegularExpressionValidator ID="rexCp" runat="server" ControlToValidate="txtCP" ErrorMessage="Escriba un codigo postal valido" ForeColor="Black" ValidationExpression="^\d{4,5}$"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rfvCodigoP" runat="server" ControlToValidate="txtCP" ErrorMessage="No ha escrito su código postal.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:CustomValidator ID="cvCP" runat="server" ErrorMessage="Escriba 5 números.*" ClientValidationFunction="sizeC" ValidationGroup="facts" ControlToValidate="txtCP" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:CustomValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="rexCp" runat="server" ControlToValidate="txtCP" ErrorMessage="Escriba un codigo postal valido.*" ForeColor="Black" ValidationExpression="^\d{4,5}$" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                 </div>
+            </div>
+            <br />
 
-                <asp:Label class="col-form-label" ID="Label4" runat="server" Text="RFC"></asp:Label>
-                <div class="form-group col">
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label4" runat="server" Text="RFC:" Font-Size="Large"></asp:Label>
+                <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtRfc" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="No ha escrito su RFC"></asp:RequiredFieldValidator>
-                     <br />
-                    <asp:RegularExpressionValidator ID="revRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="El RFC no esta escrito correctamente" ForeColor="Black" ValidationExpression="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rfvRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="No ha escrito su RFC.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:RegularExpressionValidator ID="revRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="El RFC no está escrito correctamente.*" ForeColor="Black" ValidationExpression="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                 </div>
 
             </div>
@@ -180,30 +243,38 @@
             </div>
             <br />
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="col-form-label" ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="16pt"></asp:Label>
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-4" ID="Label7" runat="server" Text="Estado civil:" Font-Size="large"></asp:Label>
+
+                <div class="col-md-4">
+                    <asp:DropDownList class="form-control border-secondary" data-bs-toggle="dropdown" aria-expanded="false" ID="ddlEstadoCivil" runat="server"></asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rvCatEstadoCivil" runat="server" ControlToValidate="ddlEstadoCivil" ErrorMessage="Seleccione un estado civil.*" InitialValue="-1" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+            <br />
+            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+                <asp:Label class="control-label col-sm-2" ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="16pt"></asp:Label>
             </div>
             <br />
 
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
-                <div class="form-group col">
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <asp:Button CssClass="btn btn-outline-dark" ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" ViewStateMode="Disabled" />
-                    </div>
+            <div class="form-group" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+                <div class="col-sm-10">
+                    <asp:Button class="btn btn-success" ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" ViewStateMode="Disabled" Width="130px" />
+                    <asp:Button CssClass="btn btn-default" ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" ViewStateMode="Disabled" Width="130px" />
+                    <br />
+                    <br />
                 </div>
             </div>
+            <br />
+            <br />
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
-                <div class="form-group col">
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <asp:Button CssClass="btn btn-outline-secondary" ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnAceptar_Click" ViewStateMode="Disabled" />
-                    </div>
-                </div>
-            </div>
+
+            
 
         </form>
-
+        
     </div>
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>

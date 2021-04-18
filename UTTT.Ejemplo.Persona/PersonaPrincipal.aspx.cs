@@ -28,7 +28,14 @@ namespace UTTT.Ejemplo.Persona
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (Session["strUsuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+
+                
+            }
+            
+                try
             {
                 Response.Buffer = true;
                 DataContext dcTemp = new DcGeneralDataContext();
@@ -43,6 +50,16 @@ namespace UTTT.Ejemplo.Persona
                     this.ddlSexo.DataValueField = "id";
                     this.ddlSexo.DataSource = lista;
                     this.ddlSexo.DataBind();
+
+                    List<CatEstadoCivil> listaCatEstadoCivil = dcTemp.GetTable<CatEstadoCivil>().ToList();
+                    CatEstadoCivil tempCatEstadoCivil = new CatEstadoCivil();
+                    tempCatEstadoCivil.id = -1;
+                    tempCatEstadoCivil.strValor = "Todos";
+                    listaCatEstadoCivil.Insert(0, tempCatEstadoCivil);
+                    this.ddlEstadoCivil.DataTextField = "strValor";
+                    this.ddlEstadoCivil.DataValueField = "id";
+                    this.ddlEstadoCivil.DataSource = listaCatEstadoCivil;
+                    this.ddlEstadoCivil.DataBind();
                 }
             }
             catch (Exception _e)
@@ -87,6 +104,8 @@ namespace UTTT.Ejemplo.Persona
                 DataContext dcConsulta = new DcGeneralDataContext();
                 bool nombreBool = false;
                 bool sexoBool = false;
+                bool estadoCivil = false;
+
                 if (!this.txtNombre.Text.Equals(String.Empty))
                 {
                     nombreBool = true;
@@ -96,12 +115,25 @@ namespace UTTT.Ejemplo.Persona
                     sexoBool = true;
                 }
 
-                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Persona, bool>> 
+                if (this.ddlEstadoCivil.Text != "-1")
+                {
+                    estadoCivil = true;
+                }
+
+                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Persona, bool>>
                     predicate =
                     (c =>
-                    ((sexoBool) ? c.idCatSexo == int.Parse(this.ddlSexo.Text) : true) &&             
+                    ((sexoBool) ? c.idCatSexo == int.Parse(this.ddlSexo.Text) : true) &&
+                    ((estadoCivil) ? c.idCatEstadoCivil == int.Parse(this.ddlEstadoCivil.Text) : true) &&
                     ((nombreBool) ? (((nombreBool) ? c.strNombre.Contains(this.txtNombre.Text.Trim()) : false)) : true)
                     );
+
+                //Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Persona, bool>> 
+                //    predicate =
+                //    (c =>
+                //    ((sexoBool) ? c.idCatSexo == int.Parse(this.ddlSexo.Text) : true) &&             
+                //    ((nombreBool) ? (((nombreBool) ? c.strNombre.Contains(this.txtNombre.Text.Trim()) : false)) : true)
+                //    );
 
                 predicate.Compile();
 
@@ -195,6 +227,30 @@ namespace UTTT.Ejemplo.Persona
             catch (Exception _e)
             {
                 throw _e;
+            }
+        }
+
+        protected void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            //this.dgvPersonas.DataBind(); ////style="color:Red;visibility:hidden;"
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
+
+
+        protected void btnInicio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Response.Redirect("~/Inicio.aspx", false);
+            }
+            catch (Exception _e)
+            {
+                this.showMessage("Ha ocurrido un error inesperado");
             }
         }
 
