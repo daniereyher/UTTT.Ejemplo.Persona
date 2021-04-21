@@ -170,13 +170,13 @@ namespace UTTT.Ejemplo.Persona
                     return;
                 }
                 DataContext dcGuardar = new DcGeneralDataContext();
-               
+
                 UTTT.Ejemplo.Linq.Data.Entity.Usuario usuario = new Linq.Data.Entity.Usuario();
                 if (this.idUsuario == 0)
                 {
                     if (!Invalid(Convert.ToInt32(ddlNombre.Text)))
                     {
-                        
+
 
                         usuario.idPersona = int.Parse(this.ddlNombre.Text.Trim());
                         this.lblMensajeDDL.Visible = false;
@@ -189,21 +189,21 @@ namespace UTTT.Ejemplo.Persona
                         //this.showMessage("La persona seleccionada ya tiene un usuario");
                         this.lblMensajeDDL.Visible = true;
                         //this.lblMensajeDDL.Text = "La persona seleccionada ya tiene un usuario.*";
-                        
+
 
 
                     }
 
 
-         
-                    //UTTT.Ejemplo.Persona.EncriptarPass obclsEncriptacion = new UTTT.Ejemplo.Persona.EncriptarPass();
-                    //string stkey = ConfigurationManager.AppSettings["stkey"];
+
+                    UTTT.Ejemplo.Persona.EncriptarPass obclsEncriptacion = new UTTT.Ejemplo.Persona.EncriptarPass();
+                    string stkey = ConfigurationManager.AppSettings["stkey"];
                     usuario.strPassword = this.txtPassword.Text.Trim();
                     usuario.idCatUsuario = 1;
                     usuario.strFecha = this.txtFecha.Text.Trim();
-                    
+
                     var UsuarioExiste = dcGlobal.GetTable<Usuario>().Where(a => a.strUsuario == txtUsuario.Text).FirstOrDefault();
-                    
+
 
                     if (UsuarioExiste != null)
                     {
@@ -240,7 +240,7 @@ namespace UTTT.Ejemplo.Persona
                             this.lblMensaje.Visible = true;
                             return;
                         }
-                       
+
 
                         dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuario>().InsertOnSubmit(usuario);
 
@@ -251,77 +251,81 @@ namespace UTTT.Ejemplo.Persona
 
                     }
 
-                   
+
 
                 }
+
                 if (this.idUsuario > 0)
                 {
 
                     usuario = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuario>().First(c => c.id == idUsuario);
 
-                    //usuario.strPassword = EncriptarPass.GetSHA256(txtPassword.Text.Trim());
-                    //txtPassword.Text = Seguridad.Encriptar(txtPassword.Text);
+                    usuario.strPassword = EncriptarPass.GetSHA256(txtPassword.Text.Trim());
+                    txtPassword.Text = Seguridad.Encriptar(txtPassword.Text);
                     usuario.strPassword = this.txtPassword.Text.Trim();
                     usuario.strFecha = this.txtFecha.Text.Trim();
                     usuario.strUsuario = this.txtUsuario.Text.Trim();
-                    usuario.idCatUsuario = int.Parse(this.ddlEstado.Text);
+                    //usuario.idCatUsuario = int.Parse(this.ddlEstado.Text);
 
-                   // persona.idCatSexo = int.Parse(this.ddlSexo.Text);
+                    // persona.idCatSexo = int.Parse(this.ddlSexo.Text);
 
 
+                    var UsuarioExisteEdit = dcGlobal.GetTable<Usuario>().Where(a => a.strUsuario == txtUsuario.Text).FirstOrDefault();
 
-                    usuario.strUsuario = this.txtUsuario.Text.Trim();
-                    String mensaje = String.Empty;
-                    if (!this.validacion(usuario, ref mensaje))
 
+                    if (UsuarioExisteEdit != null)
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
-                    }
-                    if (!this.validaSql(ref mensaje))
 
+                        //this.showMessage("El usuario ya existe");
+                        this.lblMensajeUsuario.Visible = true;
+                        //this.lblMensajeUsuario.Text = "El usuario ya existe.*";
+
+                    }
+                    else
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
+                        this.lblMensajeUsuario.Visible = false;
+                        usuario.idCatUsuario = int.Parse(this.ddlEstado.Text);
+                        usuario.strUsuario = this.txtUsuario.Text.Trim();
+                        String mensaje = String.Empty;
+                        if (!this.validacion(usuario, ref mensaje))
+
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+                        if (!this.validaSql(ref mensaje))
+
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+                        if (!this.validaHtml(ref mensaje))
+
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+
+
+                        dcGuardar.SubmitChanges();
+                        this.showMessage("El usuario se edito correctamente.");
+                        this.Response.Redirect("~/UsuarioPrincipal.aspx", false);
+
+
+
                     }
-                    if (!this.validaHtml(ref mensaje))
-
-                    {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
-                    }
-
-
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El usuario se edito correctamente.");
-                    this.Response.Redirect("~/UsuarioPrincipal.aspx", false);
-
-
 
                 }
-
-
             }
+
             catch (Exception _e)
             {
                 this.showMessageException(_e.Message);
 
-                //// Happend
-                //var mensaje = "Error message: " + _e.Message;
-                //// Información sobre la excepción interna
-                //if (_e.InnerException != null)
-                //{
-                //    mensaje = mensaje + " Inner exception: " + _e.InnerException.Message;
-                //}
-                //// Site
-                //mensaje = mensaje + " Stack trace: " + _e.StackTrace;
-                //this.Response.Redirect("~/ErrorPage.aspx", false);
-
-
-                //this.sendCorreo("dayra.daniela.reyes.hernandez@gmail.com", "Exception", mensaje);
+             
             }
 
         }

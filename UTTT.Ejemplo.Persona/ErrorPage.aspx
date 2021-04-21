@@ -24,7 +24,7 @@
             <div>
             </div>
             <br />
-            <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div style="font-family: 'Oswald'; font-weight: bold" align="center">
 
                 <asp:Label class="col-form-label" ID="lblPersona" runat="server" Text="Fatal error" Font-Size="65px"></asp:Label>
 
@@ -34,12 +34,12 @@
                 <img src="Images/sad.png"
                     width="400" height="400" />
             </div>
-            <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div style="font-family: 'Oswald'; font-weight: bold" Font-Underline="True" align="center">
 
                 <asp:Label class="col-form-label" ID="Label1" runat="server" Text="De clic en el enlace de abajo para volver a la HomePage" Font-Size="large"></asp:Label>
                 <br />
                 <br />
-                <a href="/PSR/PersonaPrincipal.aspx" class="link-primary">Pagina de inicio</a>
+                <a href="/PSR/PersonaPrincipal.aspx" class="link-success">Pagina de inicio</a>
             </div>
         </form>
     </div>

@@ -18,7 +18,7 @@
     <div class="container">
         <form id="form1" runat="server" class="form-horizontal">
   
-            <div style="color: #000000; font-size: xx-large; font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div style="color: #000000; font-size: xx-large; font-family: 'Oswald'; font-weight: bold" align="center">
                 <center>
                     <asp:Label ID="Label1" runat="server" Text="Usuarios"></asp:Label></center>
             </div>
@@ -28,7 +28,7 @@
      
 
             <%--<div class="align-content-end d-grid gap-2 d-md-flex justify-content-md-end" style="font-family: 'Barlow Condensed Light';" align="right">--%>
-             <div class="row" style="font-family: 'Barlow Condensed Light';">
+             <div class="row" style="font-family: 'Oswald'; font-size: medium">
                 <div align="left">
                     &nbsp;&nbsp;&nbsp;
                 </div>
@@ -43,14 +43,14 @@
 
             <br />
 
-            <div class="form-row" style="font-family: 'Barlow Condensed Light'";>
+            <div class="form-row" style="font-family: 'Oswald'";>
                 <asp:ScriptManager runat="server" />   
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                <ContentTemplate>
             <input type="submit" name="btnTrick" value="" id="btnTrick" style="display: none;" />
                </ContentTemplate>
                 </asp:UpdatePanel>
-                <asp:Label class="control-label col-sm-2" ID="lblNombre" runat="server" Text="Usuario:" Font-Size="large"></asp:Label>
+                <asp:Label class="control-label col-sm-2" ID="lblNombre" runat="server" Text="Usuario:" Font-Size="medium"></asp:Label>
                  <div class="col-sm-2">
                     <asp:TextBox class="form-control" ID="txtNombre" runat="server" ViewStateMode="Disabled" AutoPostBack="True" OnTextChanged="txtNombre_TextChanged" Width="211px"></asp:TextBox>
                 </div>
@@ -58,8 +58,8 @@
 
 
              <br />
-            <div class="form-row" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-2" ID="lblEstado" runat="server" Text="Estado de usuario:" Font-Size="large"></asp:Label>
+            <div class="form-row" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-2" ID="lblEstado" runat="server" Text="Estado de usuario:" Font-Size="medium"></asp:Label>
                 <div class="col-sm-3">
                     <asp:DropDownList class="form-control" CssClass="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" ID="ddlEstado" runat="server" Height="36px" Width="209px">
                     </asp:DropDownList>
@@ -68,7 +68,7 @@
             <br />
 
 
-            <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="left">
+            <div style="font-family: 'Oswald'; font-size: medium; font-weight: bold" align="left">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button CssClass="btn btn-outline-secondary" ID="btnBuscar" runat="server" Text="Buscar" align="center"
                             OnClick="btnBuscarUsuario_Click" ViewStateMode="Disabled" Width="85px" />
@@ -78,8 +78,8 @@
                 </div>
            <br />
 
-            <div class="form-control" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
-                <span id="lblDetalle" class="control-label col-sm-2" for="detalle" style="font-size: X-Large; font-weight: bold;">Detalle</span>
+            <div class="form-control" style="font-family: 'Oswald'; font-weight: bold" align="center">
+                <span id="lblDetalle" class="control-label col-sm-2" for="detalle" style="font-size: Large; font-weight: bold;">Detalle</span>
             </div>
 
             <div></div>
@@ -92,7 +92,7 @@
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
                         <ContentTemplate>
 
-                    <div style="font-family: 'Barlow Condensed Light';" align="center">
+                    <div style="font-family: 'Oswald'; font-size:small" align="center">
 
                         <div class="container float-sm-start" align="center">
 

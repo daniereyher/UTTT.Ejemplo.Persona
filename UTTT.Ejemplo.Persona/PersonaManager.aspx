@@ -60,7 +60,7 @@
     <div class="container">
         <form id="form1" class="form-horizontal" runat="server">
 
-            <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div style="font-family: 'Oswald'; font-weight: bold" align="center">
 
                 <asp:Label ID="lblPersona" runat="server" Text="Persona" Font-Size="XX-Large"></asp:Label>
                 <br />
@@ -70,8 +70,8 @@
             <br />
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="lblSexo" runat="server" Text="Sexo" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="lblSexo" runat="server" Text="Sexo" Font-Size="medium"></asp:Label>
 
                 <div class="col-md-4">
 
@@ -83,8 +83,8 @@
             <br />
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="lblClave" runat="server" Text="Clave única:" Font-Size="Large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="lblClave" runat="server" Text="Clave única:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtClaveUnica" minlength="3" MaxLength="3" onkeypress="return Nums(event);" runat="server" ViewStateMode="Disabled"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvClave" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="No ha escrito una clave única.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
@@ -96,11 +96,11 @@
             </div>
 
             <br />
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label3" runat="server" Text="Nombre:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label3" runat="server" Text="Nombre:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtNombre" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="No ha escrito su nombre.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="No ha escrito su nombre.*" EnableClientScript="False" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
                     <br />
                     <asp:CustomValidator ID="cvNombre" runat="server" ErrorMessage="Escriba minímo 3 letras.*" ControlToValidate="txtNombre" ForeColor="#6666FF" ClientValidationFunction="sizeLetMin" OnServerValidate="cvNombre_ServerValidate" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:CustomValidator>
                     <br />
@@ -109,8 +109,8 @@
             </div>
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label5" runat="server" Text="Apellido Paterno:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label5" runat="server" Text="Apellido Paterno:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtAPaterno" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rvAp" runat="server" ErrorMessage="No ha escrito su apellido paterno.*" ControlToValidate="txtAPaterno" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
@@ -123,8 +123,8 @@
 
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label6" runat="server" Text="Apellido Materno:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label6" runat="server" Text="Apellido Materno:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtAMaterno" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
                     <asp:CustomValidator ID="cvAMaterno" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtAMaterno" ErrorMessage="Escriba minímo 3 letras.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Size="Small" Font-Strikeout="False"></asp:CustomValidator>
@@ -135,8 +135,8 @@
 
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label runat="server" class="control-label col-sm-4" Text="Fecha de nacimiento:" for="FechaNac" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label runat="server" class="control-label col-sm-4" Text="Fecha de nacimiento:" for="FechaNac" Font-Size="medium"></asp:Label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
 
@@ -204,7 +204,7 @@
                 </div>
             </div>--%>
             <br />
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
+            <div class="form-group" style="font-family: 'Oswald';">
                 <asp:Label class="control-label col-sm-4" ID="Label1" runat="server" Text="E-mail:" Font-Size="Large"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtEmail" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
@@ -215,8 +215,8 @@
             </div>
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label2" runat="server" Text="Código postal:" Font-Size="Large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label2" runat="server" Text="Código postal:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtCP" runat="server" OnTextChanged="TextBox1_TextChanged1" MaxLength="5" onkeypress="return Nums(event);"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvCodigoP" runat="server" ControlToValidate="txtCP" ErrorMessage="No ha escrito su código postal.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
@@ -228,8 +228,8 @@
             </div>
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label4" runat="server" Text="RFC:" Font-Size="Large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label4" runat="server" Text="RFC:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtRfc" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvRFC" runat="server" ControlToValidate="txtRfc" ErrorMessage="No ha escrito su RFC.*" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
@@ -243,8 +243,8 @@
             </div>
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label7" runat="server" Text="Estado civil:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label7" runat="server" Text="Estado civil:" Font-Size="medium"></asp:Label>
 
                 <div class="col-md-4">
                     <asp:DropDownList class="form-control border-secondary" data-bs-toggle="dropdown" aria-expanded="false" ID="ddlEstadoCivil" runat="server"></asp:DropDownList>
@@ -253,13 +253,13 @@
                 </div>
             </div>
             <br />
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-2" ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="16pt"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-2" ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="12pt"></asp:Label>
             </div>
             <br />
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div class="form-group" style="font-family: 'Oswald'; font-weight: bold" align="center">
                 <div class="col-sm-10">
                     <asp:Button class="btn btn-success" ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" ViewStateMode="Disabled" Width="130px" />
                     <asp:Button CssClass="btn btn-default" ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" ViewStateMode="Disabled" Width="130px" />

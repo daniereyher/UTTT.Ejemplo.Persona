@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarContraseña.aspx.cs" Inherits="UTTT.Ejemplo.Persona.RecuperarContraseña" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecuperarPassword.aspx.cs" Inherits="UTTT.Ejemplo.Persona.RecuperarContraseña" %>
 
 <!DOCTYPE html>
 
@@ -17,7 +17,7 @@
     <div class="container" align="center">
         <form id="form1" class="form-horizontal" runat="server">
 
-            <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div style="font-family: Oswald; " align="center">
 
                 <asp:Label ID="lblRecuperar" runat="server" Text="Recuperar contraseña" Font-Size="XX-Large"></asp:Label>
                 <br />
@@ -28,20 +28,19 @@
 
                 <br />
                 </div>
-                <div style="font-family: 'Barlow Condensed Light'"; align="center">
+                <div style="font-family: 'Oswald'"; align="center">
                 <asp:Label ID="lblTexto" runat="server" Text="Para recuperar su contraseña y pueda acceder al sistema escriba su correo electrónico" Font-Size="Medium"></asp:Label>
             </div>
             <br />
-            <br />
-            <br />
+          
 
             
             <div class="card" style="width: 23rem;" align="center">
-                <div class="form-group" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+                <div class="form-group" style="font-family: Oswald; font-weight: bold" align="center">
                     <br />
-                    <asp:Label ID="lblCorreo" runat="server" Text="Correo:" Font-Size="large"></asp:Label>
+                    <asp:Label ID="lblCorreo" runat="server" Text="Correo:" Font-Size="Medium"></asp:Label>
                     <asp:TextBox class="form-control" ID="txtCorreo" runat="server" placeholder="example@gmail.com" ViewStateMode="Disabled" MaxLength="30" Width="224px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rvCorreo" runat="server" ErrorMessage="No ha escrito un correo.*" ControlToValidate="txtCorreo" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rvCorreo" runat="server" ErrorMessage="No ha escrito un correo.*" ControlToValidate="txtCorreo" EnableClientScript="False" Font-Bold="true" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
                     <br />
                     <asp:RegularExpressionValidator ID="rexCorreo" runat="server" ControlToValidate="txtCorreo" ErrorMessage="Escriba un correo electrónico valido.*" ForeColor="Black" ValidationExpression="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RegularExpressionValidator>
                     <br />
@@ -49,7 +48,7 @@
                     <asp:Label ID="lblError" runat="server" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:Label>
                     <br />
                     <br />
-                    <asp:Button ID="btnRecPass" runat="server" class="btn btn-outline-success" Text="Obtener password" OnClick="btnRecPass_Click" />
+                    <asp:Button ID="btnEnviar" runat="server" class="btn btn-outline-success" Text="Enviar" OnClick="btnEnviar_Click" />
 
 
                 </div>

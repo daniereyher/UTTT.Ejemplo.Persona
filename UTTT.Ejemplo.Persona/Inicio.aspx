@@ -20,20 +20,18 @@
     <div class="container" align="center">
         <form id="form1" runat="server" class="form-horizontal">
             <br />
-             <div style="color: #000000; font-size: xx-large; font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+             <div style="color: #000000; font-size: xx-large; font-family: 'Oswald'; font-weight: bold" align="center">
                 <center>
                     <asp:Label ID="Label1" runat="server" Text="Bienvenido"></asp:Label></center>
             </div>
             <br />
             <br />
-            <div class="align-content-end d-grid gap-2 d-md-flex justify-content-md-end" style=" font-family: 'Barlow Condensed Light';">
-            <asp:Label ID="lblUserInfo" runat="server" Text=""></asp:Label>
-            &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar sesion"   class="btn btn-outline-danger" OnClick="btnCerrarSesion_Click"/>
+            <div style=" font-family: 'Oswald';" align="right">
+            <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar sesión"   class="btn btn-outline-danger" OnClick="btnCerrarSesion_Click"/>
         </div>
             <br />
             
-            <div style="font-family: 'Barlow Condensed Light';">
+            <div style="font-family: 'Oswald';">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card" style="width: 27rem;">

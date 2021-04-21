@@ -45,6 +45,14 @@
       <Association Name="CatSexo_Persona" Member="CatSexo" ThisKey="idCatSexo" OtherKey="id" Type="CatSexo" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.CatUsuario" Member="CatUsuario">
+    <Type Name="CatUsuario">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="CatUsuario_Usuario" Member="Usuario" ThisKey="id" OtherKey="idCatUsuario" Type="Usuario" />
+    </Type>
+  </Table>
   <Table Name="dbo.Usuario" Member="Usuario">
     <Type Name="Usuario">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -53,16 +61,9 @@
       <Column Name="strFecha" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="idPersona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idCatUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Persona_Usuario" Member="Persona" ThisKey="idPersona" OtherKey="id" Type="Persona" IsForeignKey="true" />
+      <Column Name="token" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="CatUsuario_Usuario" Member="CatUsuario" ThisKey="idCatUsuario" OtherKey="id" Type="CatUsuario" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CatUsuario" Member="CatUsuario">
-    <Type Name="CatUsuario">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="strValor" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="CatUsuario_Usuario" Member="Usuario" ThisKey="id" OtherKey="idCatUsuario" Type="Usuario" />
+      <Association Name="Persona_Usuario" Member="Persona" ThisKey="idPersona" OtherKey="id" Type="Persona" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

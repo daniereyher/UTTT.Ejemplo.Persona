@@ -15,8 +15,6 @@ namespace UTTT.Ejemplo.Persona
             {
                 Response.Redirect("Login.aspx");
 
-                lblUserInfo.Text = "strUsuario : " + Session["strUsuario"];
-
             }
 
         }

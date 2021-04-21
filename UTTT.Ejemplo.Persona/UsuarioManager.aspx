@@ -55,7 +55,7 @@
     <div class="container">
         <form id="form1" class="form-horizontal" runat="server">
 
-            <div style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div style="font-family: 'Oswald'; font-weight: bold" align="center">
 
                 <asp:Label ID="lblPersona" runat="server" Text="Usuario" Font-Size="XX-Large"></asp:Label>
                 <br />
@@ -75,8 +75,8 @@
 
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="lblNombre" runat="server" Text="Nombre:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="lblNombre" runat="server" Text="Nombre:" Font-Size="medium"></asp:Label>
 
                 <div class="col-md-4">
 
@@ -89,13 +89,13 @@
             </div>
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="lblUsuario" runat="server" Text="Usuario:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="lblUsuario" runat="server" Text="Usuario:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
                     <asp:TextBox class="form-control" ID="txtUsuario" runat="server" ViewStateMode="Disabled" MaxLength="20" onkeypress="return check(event)"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rvAp" runat="server" ErrorMessage="No ha escrito un usuario.*" ControlToValidate="txtUsuario" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
                     <br />
-                    <asp:CustomValidator ID="cvUsuario" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtUsuario" ErrorMessage="Escriba minímo 5 letras.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Overline="False" Font-Size="Small"></asp:CustomValidator>
+                    <asp:CustomValidator ID="cvUsuario" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtUsuario" ErrorMessage="Escriba minímo 5 caracteres.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Overline="False" Font-Size="Small"></asp:CustomValidator>
                     <br />
                     <asp:Label  ID="lblMensajeUsuario" runat="server" ForeColor="Red" Text="El usuario ya existe.*" Visible="False" Font-Bold="True" Font-Size="Small"></asp:Label>
             
@@ -105,10 +105,10 @@
             </div>
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="Label1" runat="server" Text="Password:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="Label1" runat="server" Text="Password:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
-                    <asp:TextBox class="form-control" ID="txtPassword" runat="server" ViewStateMode="Disabled" onkeypress="return check(event)" MaxLength="20" ></asp:TextBox>
+                    <asp:TextBox class="form-control" ID="txtPassword" runat="server" ViewStateMode="Disabled" onkeypress="return check(event)" MaxLength="20" type="Password"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rvPassword" runat="server" ErrorMessage="No ha escrito un password.*" ControlToValidate="txtPassword" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
                     <br />
                     <asp:CustomValidator ID="cvPass" runat="server" ClientValidationFunction="sizeLetMin" ControlToValidate="txtPassword" ErrorMessage="Escriba minímo 5 letras.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Overline="False" Font-Size="Small"></asp:CustomValidator>
@@ -117,10 +117,10 @@
             </div>
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="lblConfirmarPassword" runat="server" Text="Confirmar password:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="lblConfirmarPassword" runat="server" Text="Confirmar password:" Font-Size="medium"></asp:Label>
                 <div class="col-md-4">
-                    <asp:TextBox class="form-control" ID="txtConfirmarPassword" runat="server" ViewStateMode="Disabled" MaxLength="20"></asp:TextBox>
+                    <asp:TextBox class="form-control" ID="txtConfirmarPassword" runat="server" ViewStateMode="Disabled" MaxLength="20" type="Password"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfCPass" runat="server" ErrorMessage="Debe confirmar el password.*" ControlToValidate="txtConfirmarPassword" EnableClientScript="False" Font-Bold="True" Font-Italic="True" Font-Size="Small"></asp:RequiredFieldValidator>
                     <br />
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="txtPassword" ControlToValidate="txtConfirmarPassword" ErrorMessage="El password no coincide.*" ForeColor="#6666FF" Font-Bold="True" Font-Italic="True" Font-Overline="False" Font-Size="Small"></asp:CompareValidator>
@@ -129,8 +129,8 @@
             </div>
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label runat="server" class="control-label col-sm-4" Text="Fecha de registro:" for="FechaReg" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label runat="server" class="control-label col-sm-4" Text="Fecha de registro:" for="FechaReg" Font-Size="medium"></asp:Label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
 
@@ -154,8 +154,8 @@
 
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';">
-                <asp:Label class="control-label col-sm-4" ID="lblEstado" runat="server" Text="Estado:" Font-Size="large"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';">
+                <asp:Label class="control-label col-sm-4" ID="lblEstado" runat="server" Text="Estado:" Font-Size="medium"></asp:Label>
 
                 <div class="col-md-4">
 
@@ -166,13 +166,13 @@
 
             <br />
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light';" align="center">
-                <asp:Label class="control-label col-sm-4" ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="16pt"></asp:Label>
+            <div class="form-group" style="font-family: 'Oswald';" align="center">
+                <asp:Label class="control-label col-sm-4" ID="lblMensaje" runat="server" ForeColor="Red" Text="Validaciones" Visible="False" Font-Bold="True" Font-Size="12pt"></asp:Label>
             </div>
             <br />
 
 
-            <div class="form-group" style="font-family: 'Barlow Condensed Light'; font-weight: bold" align="center">
+            <div class="form-group" style="font-family: 'Oswald'; font-weight: bold" align="center">
                 <div class="col-sm-10">
                     <asp:Button class="btn btn-success" ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" ViewStateMode="Disabled" Width="130px" />
                     &nbsp;
